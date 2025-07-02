@@ -3,6 +3,7 @@ package com.courses.internshipapp.modules.internship
 import com.courses.internshipapp.modules.admin.AdminRepository
 import com.courses.internshipapp.modules.internship.dtos.InternshipCreate
 import com.courses.internshipapp.modules.internship.dtos.InternshipResponse
+import com.courses.internshipapp.modules.skills.SkillRepository
 import com.courses.internshipapp.modules.students.StudentEntity
 import com.courses.internshipapp.modules.students.StudentRepository
 import com.courses.internshipapp.modules.users.UserRepository
@@ -15,14 +16,21 @@ class InternshipService(
     private val internshipRepository: InternshipRepository,
     private val studentRepository: StudentRepository,
     private val adminRepository: AdminRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val skillRepository: SkillRepository
 ) {
 
     fun createInternship(studentId: UUID, request: InternshipCreate): InternshipResponse {
         val student = studentRepository.findById(studentId)
             .orElseThrow { RuntimeException("Étudiant introuvable avec l'ID: $studentId") }
 
-        val entity = InternshipMapper.toEntity(request, student)
+        val skillEntities = request.skills.map { skillName ->
+            skillRepository.findByName(skillName)
+                ?: throw RuntimeException("Compétence introuvable: $skillName")
+        }.toMutableSet()
+
+        val entity = InternshipMapper.toEntity(request, student, skillEntities)
+        entity.status = InternshipStatus.SUBMITTED;
         val saved = internshipRepository.save(entity)
         return InternshipMapper.toResponse(saved)
     }
@@ -48,6 +56,17 @@ class InternshipService(
         val student = userRepository.findByEmail(currentUser.username) as? StudentEntity
             ?: throw RuntimeException("Seuls les étudiants peuvent voir leurs stages")
 
-        return internshipRepository.findByStudent(student).map { InternshipMapper.toResponse(it) }
+        return internshipRepository.findByCreatedBy(student).map { InternshipMapper.toResponse(it) }
+    }
+
+    fun getById(id: UUID): InternshipResponse {
+        val internship = internshipRepository.findById(id)
+            .orElseThrow { RuntimeException("Stage introuvable avec l'ID: $id") }
+
+        return InternshipMapper.toResponse(internship)
+    }
+
+    fun deleteAll() {
+        internshipRepository.deleteAll()
     }
 }

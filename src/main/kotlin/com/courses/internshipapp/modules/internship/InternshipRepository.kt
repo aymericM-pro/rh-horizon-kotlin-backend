@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 import java.util.UUID
 
 interface InternshipRepository: JpaRepository<InternshipEntity, UUID> {
-    fun findByStudent(student: StudentEntity): List<InternshipEntity>
+    fun findByCreatedBy(student: StudentEntity): List<InternshipEntity>
 }

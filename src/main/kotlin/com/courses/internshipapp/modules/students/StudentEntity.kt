@@ -7,7 +7,6 @@ import jakarta.persistence.CascadeType
 import jakarta.persistence.DiscriminatorValue
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToMany
-import jakarta.persistence.Table
 
 @Entity
 @DiscriminatorValue("STUDENT")

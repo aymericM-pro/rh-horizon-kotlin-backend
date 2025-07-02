@@ -21,9 +21,30 @@ class SecurityConfig(
 ) {
 
     @Autowired
-    lateinit var passwordEncoder: PasswordEncoder
+    lateinit var passwordEncoder: PasswordEncoder;
 
     @Bean
+    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+        return http
+            .csrf { it.disable() }
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .authorizeHttpRequests {
+                it.anyRequest().permitAll()
+            }
+            // .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .build()
+    }
+
+    @Bean
+    fun authenticationProvider(): AuthenticationProvider {
+        val provider = DaoAuthenticationProvider()
+        provider.setUserDetailsService(userDetailsService)
+        provider.setPasswordEncoder(passwordEncoder)
+        return provider
+    }
+}
+
+/*    @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         return http
             .csrf { it.disable() }
@@ -37,12 +58,4 @@ class SecurityConfig(
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
             .build()
     }
-
-    @Bean
-    fun authenticationProvider(): AuthenticationProvider {
-        val provider = DaoAuthenticationProvider()
-        provider.setUserDetailsService(userDetailsService)
-        provider.setPasswordEncoder(passwordEncoder)
-        return provider
-    }
-}
+    */

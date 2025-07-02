@@ -30,4 +30,14 @@ class InternshipController(
     @GetMapping("/me")
     fun getMyInternships(@AuthenticationPrincipal user: UserDetails): ResponseEntity<List<InternshipResponse>> =
         ResponseEntity.ok(internshipService.getMyInternships(user))
-}w
+
+    @GetMapping("/{id}")
+    fun getById(@PathVariable id: UUID): ResponseEntity<InternshipResponse> =
+        ResponseEntity.ok(internshipService.getById(id))
+
+    @DeleteMapping
+    fun deleteAll(): ResponseEntity<Void> {
+        internshipService.deleteAll()
+        return ResponseEntity.noContent().build()
+    }
+}
