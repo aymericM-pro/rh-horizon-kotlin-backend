@@ -43,6 +43,22 @@ class InternshipService(
             .orElseThrow { RuntimeException("Administrateur introuvable avec l'ID: $adminId") }
 
         internship.validated = true
+        internship.status = InternshipStatus.APPROVED
+        internship.validatedBy = admin
+
+        val saved = internshipRepository.save(internship)
+        return InternshipMapper.toResponse(saved)
+    }
+
+    fun rejectedInternship(internshipId: UUID, adminId: UUID): InternshipResponse {
+        val internship = internshipRepository.findById(internshipId)
+            .orElseThrow { RuntimeException("Stage introuvable avec l'ID: $internshipId") }
+
+        val admin = adminRepository.findById(adminId)
+            .orElseThrow { RuntimeException("Administrateur introuvable avec l'ID: $adminId") }
+
+        internship.validated = false
+        internship.status = InternshipStatus.REJECTED
         internship.validatedBy = admin
 
         val saved = internshipRepository.save(internship)

@@ -1,5 +1,6 @@
 package com.courses.internshipapp.modules.internship.dtos
 
+import com.courses.internshipapp.modules.defenses.DefenseResponse
 import com.courses.internshipapp.modules.internship.InternshipStatus
 import com.courses.internshipapp.modules.internship.enums.*
 import java.util.UUID
@@ -24,5 +25,6 @@ data class InternshipResponse(
     val studentId: UUID?,
     val validatedBy: UUID?,
     val skills: List<String>,
-    val missions: List<String>
+    val missions: List<String>,
+    val defenses: DefenseResponse? = null
 )

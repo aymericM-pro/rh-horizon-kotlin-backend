@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Convention de Stage</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1.8cm;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+            font-size: 10.8pt;
+            line-height: 1.45;
+            color: #333;
+        }
+
+        h1, h2 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 18pt;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 13.5pt;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 4px;
+            margin-top: 22px;
+        }
+
+        h3 {
+            font-size: 12pt;
+            color: #002244;
+            margin-top: 18px;
+        }
+
+        .section {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #222;
+            display: inline-block;
+            min-width: 130px;
+        }
+
+        .value {
+            color: #555;
+        }
+
+        ul {
+            padding-left: 15px;
+            margin-top: 4px;
+            margin-bottom: 8px;
+        }
+
+        table.signature {
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        table.signature td {
+            width: 48%;
+            vertical-align: top;
+            padding: 10px;
+            border: 1px solid #ccc;
+            height: 90px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 9.5pt;
+            color: #777;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Convention de Stage</h1>
+
+<h2>Parties concernées</h2>
+<div class="section">
+    <p><span class="label">Établissement :</span> <span class="value">Université des Sciences de Paris</span></p>
+    <p><span class="label">Étudiant :</span> <span class="value">Marie Dupont</span></p>
+    <p><span class="label">Entreprise d’accueil :</span> <span class="value">TechCorp Solutions</span></p>
+    <p><span class="label">Représentant :</span> <span class="value">M. Jean Martin</span></p>
+</div>
+
+<h2>Informations sur le stage</h2>
+<div class="section">
+    <p><span class="label">Titre du stage :</span> <span class="value">Développement d'une plateforme web éducative</span></p>
+    <p><span class="label">Période :</span> <span class="value">01/02/2025 → 31/07/2025</span></p>
+    <p><span class="label">Lieu :</span> <span class="value">10 rue de la République, 75001 Paris</span></p>
+    <p><span class="label">Encadrant entreprise :</span> <span class="value">Mme Sophie Bernard</span></p>
+    <p><span class="label">Tuteur pédagogique :</span> <span class="value">Dr. Alain Lefebvre</span></p>
+</div>
+
+<h2>Objectifs et missions</h2>
+<div class="section">
+    <p>Ce stage permet à l'étudiant de découvrir un environnement de développement professionnel dans une entreprise innovante. Il contribue à un projet web avec une équipe agile.</p>
+</div>
+
+<h2>Compétences visées</h2>
+<div class="section">
+    <ul>
+        <li>Développement web fullstack (Vue.js / Spring Boot)</li>
+        <li>Design de base de données relationnelles</li>
+        <li>Méthodes agiles (Scrum)</li>
+        <li>Tests unitaires et d’intégration</li>
+    </ul>
+</div>
+
+<h2>Conditions de stage</h2>
+<div class="section">
+    <p><span class="label">Gratification :</span> <span class="value">600 € / mois</span></p>
+    <p><span class="label">Assurance :</span> <span class="value">Étudiant assuré MAIF – responsabilité civile</span></p>
+    <p><span class="label">Horaires :</span> <span class="value">Lundi à vendredi, 9h → 17h</span></p>
+</div>
+
+<h2>Engagements</h2>
+<div class="section">
+    <ul>
+        <li>Respect du règlement intérieur de l’entreprise</li>
+        <li>Confidentialité des informations sensibles</li>
+        <li>Respect du planning défini par l’encadrant</li>
+        <li>Remise d’un rapport à la fin du stage</li>
+    </ul>
+</div>
+
+<!-- Articles réglementaires -->
+<h2>Articles réglementaires</h2>
+<div class="section">
+    <h3>Article 4 – Accueil et encadrement du stagiaire</h3>
+    <p>Le stagiaire est suivi par l’enseignant référent désigné dans la présente convention [...].</p>
+
+    <h3>Article 5 – Gratification - Avantages</h3>
+    <p>A l’étranger, les règles de gratification ou de rémunération relèvent du droit local [...].</p>
+
+    <h3>Article 5 bis – France - Accès aux droits des salariés</h3>
+    <p>Le stagiaire bénéficie des protections et droits mentionnés [...].</p>
+
+    <h3>Article 5 ter – France - Accès aux droits des agents</h3>
+    <p>Les trajets effectués par le stagiaire d’un organisme de droit public [...].</p>
+
+    <h3>Article 6 – Régime de protection sociale</h3>
+    <p>Pendant la durée du stage, le stagiaire bénéficie d’une protection maladie [...].</p>
+
+    <h3>Article 6.1 à 6.4 – Gratification / Protection / Accidents</h3>
+    <p>Détails complets sur les cas de figure en cas d’accident, de gratification > 15 %, assurance à l’étranger, etc.</p>
+
+    <h3>Article 7 – Responsabilité et assurance</h3>
+    <p>L’organisme d’accueil et le stagiaire déclarent être garantis [...].</p>
+
+    <h3>Article 8 – Discipline</h3>
+    <p>Le stagiaire est soumis à la discipline et aux clauses du règlement intérieur [...].</p>
+
+    <h3>Article 9 – Congés – Interruption du stage</h3>
+    <p>Lorsque le stage a lieu en France (sauf exceptions) [...].</p>
+</div>
+
+<h2>Signatures et validation</h2>
+<table class="signature">
+    <tr>
+        <td>
+            <strong>Étudiant</strong><br/><br/>
+            Marie Dupont<br/><br/>
+            Signature :
+        </td>
+        <td>
+            <strong>Entreprise</strong><br/><br/>
+            Jean Martin<br/><br/>
+            Signature :
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Tuteur pédagogique</strong><br/><br/>
+            Dr. Alain Lefebvre<br/><br/>
+            Signature :
+        </td>
+        <td>
+            <strong>Établissement</strong><br/><br/>
+            Mme Claire Moreau<br/><br/>
+            Signature :
+        </td>
+    </tr>
+</table>
+
+<div class="footer">
+    Fait à Paris, le 3 juillet 2025
+</div>
+
+</body>
+</html>

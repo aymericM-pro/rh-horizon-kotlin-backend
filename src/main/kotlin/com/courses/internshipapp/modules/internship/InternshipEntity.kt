@@ -1,6 +1,7 @@
 package com.courses.internshipapp.modules.internship
 
 import com.courses.internshipapp.modules.admin.AdminEntity
+import com.courses.internshipapp.modules.defenses.DefenseEntity
 import com.courses.internshipapp.modules.internship.entities.*
 import com.courses.internshipapp.modules.internship.enums.*
 import com.courses.internshipapp.modules.skills.SkillEntity
@@ -68,5 +69,8 @@ class InternshipEntity(
     var skills: MutableSet<SkillEntity> = mutableSetOf(),
 
     @OneToMany(mappedBy = "internship", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
-    var missions: MutableList<InternshipMissionEntity> = mutableListOf()
+    var missions: MutableList<InternshipMissionEntity> = mutableListOf(),
+
+    @OneToOne(mappedBy = "internship", cascade = [CascadeType.ALL], fetch = FetchType.LAZY, orphanRemoval = true)
+    var defense: DefenseEntity? = null
 )

@@ -19,9 +19,13 @@ class InternshipController(
     fun create(@PathVariable studentId: UUID, @RequestBody request: InternshipCreate): ResponseEntity<InternshipResponse> =
         ResponseEntity.status(HttpStatus.CREATED).body(internshipService.createInternship(studentId, request))
 
-    @PostMapping("/{internshipId}/validate/{adminId}")
+    @PatchMapping("/{internshipId}/validate/{adminId}")
     fun validate(@PathVariable internshipId: UUID, @PathVariable adminId: UUID): ResponseEntity<InternshipResponse> =
         ResponseEntity.ok(internshipService.validateInternship(internshipId, adminId))
+
+    @PatchMapping("/{internshipId}/rejected/{adminId}")
+    fun rejected(@PathVariable internshipId: UUID, @PathVariable adminId: UUID): ResponseEntity<InternshipResponse> =
+        ResponseEntity.ok(internshipService.rejectedInternship(internshipId, adminId))
 
     @GetMapping
     fun getAll(): ResponseEntity<List<InternshipResponse>> =

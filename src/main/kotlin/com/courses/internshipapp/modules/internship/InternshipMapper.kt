@@ -1,3 +1,4 @@
+import com.courses.internshipapp.modules.defenses.DefenseMapper
 import com.courses.internshipapp.modules.internship.InternshipEntity
 import com.courses.internshipapp.modules.skills.SkillEntity
 import com.courses.internshipapp.modules.internship.dtos.*
@@ -105,6 +106,7 @@ object InternshipMapper {
                 truthfulness = entity.agreements.truthfulness
             ),
             skills = entity.skills.map { it.name },
-            missions = entity.missions.map { it.description }
+            missions = entity.missions.map { it.description },
+            defenses = entity.defense?.let { DefenseMapper.toResponse(it) }
         )
 }
