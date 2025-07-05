@@ -1,5 +1,6 @@
 package com.courses.internshipapp.modules.internship
 
+import com.courses.internshipapp.modules.internship.dtos.InternshipCardDto
 import com.courses.internshipapp.modules.internship.dtos.InternshipCreate
 import com.courses.internshipapp.modules.internship.dtos.InternshipResponse
 import org.springframework.http.HttpStatus
@@ -43,5 +44,11 @@ class InternshipController(
     fun deleteAll(): ResponseEntity<Void> {
         internshipService.deleteAll()
         return ResponseEntity.noContent().build()
+    }
+
+    @GetMapping("/student/{studentId}/cards")
+    fun getStudentInternshipCards(@PathVariable studentId: UUID): ResponseEntity<List<InternshipCardDto>> {
+        val cards = internshipService.getAllInternshipStudent(studentId)
+        return ResponseEntity.ok(cards)
     }
 }

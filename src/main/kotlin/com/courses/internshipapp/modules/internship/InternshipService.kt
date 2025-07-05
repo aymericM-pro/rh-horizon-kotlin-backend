@@ -1,9 +1,11 @@
 package com.courses.internshipapp.modules.internship
 
 import com.courses.internshipapp.modules.admin.AdminRepository
+import com.courses.internshipapp.modules.internship.dtos.InternshipCardDto
 import com.courses.internshipapp.modules.internship.dtos.InternshipCreate
 import com.courses.internshipapp.modules.internship.dtos.InternshipResponse
-import com.courses.internshipapp.modules.skills.SkillRepository
+import com.courses.internshipapp.modules.internship.entities.CompanyDetails
+ import com.courses.internshipapp.modules.skills.SkillRepository
 import com.courses.internshipapp.modules.students.StudentEntity
 import com.courses.internshipapp.modules.students.StudentRepository
 import com.courses.internshipapp.modules.users.UserRepository
@@ -67,6 +69,37 @@ class InternshipService(
 
     fun getAll(): List<InternshipResponse> =
         internshipRepository.findAll().map { InternshipMapper.toResponse(it) }
+
+    fun getAllInternshipStudent(studentId: UUID): List<InternshipCardDto> {
+        val projections = internshipRepository.findAllCardByStudentId(studentId)
+
+        return projections
+            .groupBy { it.internshipId }
+            .map { (internshipId, group) ->
+                val first = group.first()
+
+                val company = CompanyDetails(
+                    name = first.company_name ?: "",
+                    sector = first.company_sector ?: "",
+                    size = first.company_size ?: "",
+                    website = first.company_website ?: "",
+                    address = first.company_address ?: "",
+                    city = first.company_city ?: "",
+                    postalCode = first.company_postalCode ?: ""
+                )
+
+                val skills = group.mapNotNull { it.skill_name }.distinct()
+
+                InternshipCardDto(
+                    internshipId = internshipId,
+                    title = first.title ?: "",
+                    description = first.description ?: "",
+                    status = first.status ?: "",
+                    company = company,
+                    skills = skills
+                )
+            }
+    }
 
     fun getMyInternships(currentUser: UserDetails): List<InternshipResponse> {
         val student = userRepository.findByEmail(currentUser.username) as? StudentEntity
