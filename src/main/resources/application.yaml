@@ -14,5 +14,10 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+
 server:
   port: 8080
+
+logging:
+  level:
+    com.fasterxml.jackson.databind: DEBUG

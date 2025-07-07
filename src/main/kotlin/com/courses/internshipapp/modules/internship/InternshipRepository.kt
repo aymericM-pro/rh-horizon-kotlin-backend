@@ -4,6 +4,7 @@ import com.courses.internshipapp.modules.internship.projections.InternshipCardWi
 import com.courses.internshipapp.modules.students.StudentEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
+import java.time.LocalDate
 import java.util.UUID
 
 interface InternshipRepository: JpaRepository<InternshipEntity, UUID> {
@@ -28,4 +29,13 @@ interface InternshipRepository: JpaRepository<InternshipEntity, UUID> {
     WHERE i.createdBy.userId = :studentId
 """)
     fun findAllCardByStudentId(studentId: UUID): List<InternshipCardWithSkillProjection>
+    fun findByStatusAndStartDateLessThanEqual(
+        status: InternshipStatus,
+        date: LocalDate
+    ): List<InternshipEntity>
+
+    fun findByStatusAndEndDateBefore(
+        status: InternshipStatus,
+        date: LocalDate
+    ): List<InternshipEntity>
 }

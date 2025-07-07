@@ -13,6 +13,7 @@ import java.util.UUID
 @Entity
 @Table(name = "internships")
 class InternshipEntity(
+
     @Id
     @GeneratedValue
     @Column(columnDefinition = "uuid", updatable = false, unique = true)

@@ -4,7 +4,6 @@ import com.courses.internshipapp.modules.users.UserEntity
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.stereotype.Service
 
 class CustomUserDetails(private val user: UserEntity) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =

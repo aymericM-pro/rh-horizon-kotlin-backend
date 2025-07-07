@@ -2,11 +2,12 @@ package com.courses.internshipapp.modules.internship
 
 enum class InternshipStatus {
     DRAFT,
+    CREATED,
     SUBMITTED,
     APPROVED,
     REJECTED,
-    CANCELLED,
     IN_PROGRESS,
     COMPLETED,
+    VALIDATED,
     ARCHIVED
 }
