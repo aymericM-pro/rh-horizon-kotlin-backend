@@ -36,7 +36,7 @@ class DefenseController(
     @PatchMapping("/{defenseId}/validate")
     @PreAuthorize("hasRole('ADMIN')")
     fun validate(@PathVariable defenseId: UUID): ResponseEntity<DefenseResponse> =
-        ResponseEntity.ok(defenseService.validate(defenseId))
+        ResponseEntity.ok(defenseService.scheduledDefense(defenseId))
 
     @PatchMapping("/{defenseId}/complete")
     @PreAuthorize("hasRole('ADMIN')")

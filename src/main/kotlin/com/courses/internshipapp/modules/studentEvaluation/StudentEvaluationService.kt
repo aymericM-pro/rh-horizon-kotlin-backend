@@ -43,7 +43,7 @@ class StudentEvaluationService(
                 EvaluationCriteriaEntity(
                     label = it.label,
                     grades = it.grades,
-                    Evaluation = existing
+                    evaluation = existing
                 )
             }
         )

@@ -37,7 +37,7 @@ class DefenseService(
         defenseRepository.deleteById(defenseId)
     }
 
-    fun validate(defenseId: UUID): DefenseResponse {
+    fun scheduledDefense(defenseId: UUID): DefenseResponse {
         val defense = getDefenseOrThrow(defenseId)
 
         if (defense.status != DefenseStatus.PENDING_REQUEST) {

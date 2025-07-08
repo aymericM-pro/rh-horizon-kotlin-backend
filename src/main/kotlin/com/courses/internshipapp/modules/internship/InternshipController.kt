@@ -37,15 +37,15 @@ class InternshipController(
         @PathVariable internshipId: UUID,
         @RequestBody request: SubmitRequest
     ): ResponseEntity<InternshipResponse> {
-        logger.info("🔧 Requête de soumission du stage $internshipId par l'étudiant ${request.studentId}")
+        logger.info("Requête de soumission du stage $internshipId par l'étudiant ${request.studentId}")
         return ResponseEntity.ok(internshipService.submitInternship(internshipId, request.studentId))
     }
 
-    @PatchMapping("/{internshipId}/validate/{adminId}")
+    @PatchMapping("/{internshipId}/approuve/{adminId}")
     fun approuve(@PathVariable internshipId: UUID, @PathVariable adminId: UUID): ResponseEntity<InternshipResponse> =
         ResponseEntity.ok(internshipService.approuvedInternship(internshipId, adminId))
 
-    @PatchMapping
+    @PatchMapping(("/{internshipId}/validate/{adminId}"))
     fun validate(@PathVariable internshipId: UUID, @PathVariable adminId: UUID): ResponseEntity<InternshipResponse> =
         ResponseEntity.ok(internshipService.validatedInternship(internshipId, adminId))
 

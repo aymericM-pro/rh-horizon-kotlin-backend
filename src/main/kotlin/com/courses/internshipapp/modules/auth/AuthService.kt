@@ -14,6 +14,7 @@ class AuthService(
     private val jwtService: JwtService,
     private val userDetailsServiceImpl: UserDetailsServiceImpl
 ) {
+
     fun login(request: LoginRequest): TokenResponse {
         val auth = UsernamePasswordAuthenticationToken(request.email, request.password)
         authenticationManager.authenticate(auth)
