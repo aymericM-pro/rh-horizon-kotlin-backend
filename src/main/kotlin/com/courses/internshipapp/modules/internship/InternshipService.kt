@@ -89,22 +89,22 @@ class InternshipService(
         return InternshipMapper.toResponse(saved)
     }
 
-    fun approuvedInternship(internshipId: UUID, adminId: UUID): InternshipResponse {
+    fun approuveInternship(internshipId: UUID, currentUser: UserDetails): InternshipResponse {
         val internship = internshipRepository.findById(internshipId)
             .orElseThrow {
                 logger.error("Stage introuvable avec l’ID: {}", internshipId)
                 BusinessException(ErrorInternship.NOT_FOUND)
             }
 
-        val admin = adminRepository.findById(adminId)
+/*        val admin = adminRepository.findById(currentUser)
             .orElseThrow {
                 logger.error("Administrateur introuvable avec l’ID: {}", adminId)
                 BusinessException(ErrorInternship.INVALID_DATA)
-            }
+            }*/
 
         internship.validated = true
         internship.status = InternshipStatus.APPROVED
-        internship.validatedBy = admin
+        /*internship.validatedBy = admin*/
 
         val saved = internshipRepository.save(internship)
         logger.info("Stage validé: {}", saved.internshipId)
@@ -112,22 +112,26 @@ class InternshipService(
         return InternshipMapper.toResponse(saved)
     }
 
-    fun validatedInternship(internshipId: UUID, adminId: UUID): InternshipResponse {
+    fun validatedInternship(internshipId: UUID, currentUser: UserDetails): InternshipResponse {
         val internship = internshipRepository.findById(internshipId)
             .orElseThrow {
                 logger.error("Stage introuvable avec l’ID: {}", internshipId)
                 BusinessException(ErrorInternship.NOT_FOUND)
             }
 
+/*
         val admin = adminRepository.findById(adminId)
             .orElseThrow {
                 logger.error("Administrateur introuvable avec l’ID: {}", adminId)
                 BusinessException(ErrorInternship.INVALID_DATA)
             }
+*/
 
         internship.validated = true
         internship.status = InternshipStatus.VALIDATED
+/*
         internship.validatedBy = admin
+*/
 
         val saved = internshipRepository.save(internship)
         logger.info("Stage validé: {}", saved.internshipId)
@@ -135,22 +139,25 @@ class InternshipService(
         return InternshipMapper.toResponse(saved)
     }
 
-    fun rejectedInternship(internshipId: UUID, adminId: UUID): InternshipResponse {
+    fun rejectedInternship(internshipId: UUID, currentUser: UserDetails): InternshipResponse {
         val internship = internshipRepository.findById(internshipId)
             .orElseThrow {
                 logger.error("Stage introuvable avec l’ID: {}", internshipId)
                 BusinessException(ErrorInternship.NOT_FOUND)
             }
 
-        val admin = adminRepository.findById(adminId)
+ /*       val admin = adminRepository.findById(adminId)
             .orElseThrow {
                 logger.error("Administrateur introuvable avec l’ID: {}", adminId)
                 BusinessException(ErrorInternship.INVALID_DATA)
             }
-
+*/
         internship.validated = false
         internship.status = InternshipStatus.REJECTED
+
+/*
         internship.validatedBy = admin
+*/
 
         val saved = internshipRepository.save(internship)
         logger.info("Stage rejeté: {}", saved.internshipId)

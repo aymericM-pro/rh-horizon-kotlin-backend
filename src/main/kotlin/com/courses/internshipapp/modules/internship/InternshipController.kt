@@ -7,6 +7,7 @@ import com.courses.internshipapp.modules.internship.dtos.SubmitRequest
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
@@ -41,17 +42,18 @@ class InternshipController(
         return ResponseEntity.ok(internshipService.submitInternship(internshipId, request.studentId))
     }
 
-    @PatchMapping("/{internshipId}/approuve/{adminId}")
-    fun approuve(@PathVariable internshipId: UUID, @PathVariable adminId: UUID): ResponseEntity<InternshipResponse> =
-        ResponseEntity.ok(internshipService.approuvedInternship(internshipId, adminId))
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping("/{internshipId}/approuve")
+    fun approuve(@PathVariable internshipId: UUID, @AuthenticationPrincipal currentUser: UserDetails): ResponseEntity<InternshipResponse> =
+        ResponseEntity.ok(internshipService.approuveInternship(internshipId, currentUser))
 
-    @PatchMapping(("/{internshipId}/validate/{adminId}"))
-    fun validate(@PathVariable internshipId: UUID, @PathVariable adminId: UUID): ResponseEntity<InternshipResponse> =
-        ResponseEntity.ok(internshipService.validatedInternship(internshipId, adminId))
+    @PatchMapping(("/{internshipId}/validate"))
+    fun validate(@PathVariable internshipId: UUID, @AuthenticationPrincipal currentUser: UserDetails): ResponseEntity<InternshipResponse> =
+        ResponseEntity.ok(internshipService.validatedInternship(internshipId, currentUser))
 
-    @PatchMapping("/{internshipId}/rejected/{adminId}")
-    fun rejected(@PathVariable internshipId: UUID, @PathVariable adminId: UUID): ResponseEntity<InternshipResponse> =
-        ResponseEntity.ok(internshipService.rejectedInternship(internshipId, adminId))
+    @PatchMapping("/{internshipId}/rejected")
+    fun rejected(@PathVariable internshipId: UUID, @AuthenticationPrincipal currentUser: UserDetails): ResponseEntity<InternshipResponse> =
+        ResponseEntity.ok(internshipService.rejectedInternship(internshipId, currentUser))
 
     @GetMapping
     fun getAll(): ResponseEntity<List<InternshipResponse>> =
